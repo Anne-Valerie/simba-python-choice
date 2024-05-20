@@ -535,15 +535,15 @@ def get_dict_betas(
         # dict_betas["b_DIST_H_U_GA15"] = Beta(
         #     "B_DIST_H_U_GA15", 0, None, None, 0
         # )
-        # dict_betas["b_DIST_H_U_HT15"] = Beta(
-        #     "B_DIST_H_U_HT15", 0, None, None, 0
-        # )
+        dict_betas["b_DIST_H_U_HT15"] = Beta(
+            "B_DIST_H_U_HT15", 0, None, None, 0
+        )
         # dict_betas["b_DIST_H_U_V15"] = Beta(
         #     "B_DIST_H_U_V15", 0, None, None, 0
         # )
-        # dict_betas["b_DIST_H_U_HTV15"] = Beta(
-        #     "B_DIST_H_U_HTV15", 0, None, None, 0
-        # )
+        dict_betas["b_DIST_H_U_HTV15"] = Beta(
+            "B_DIST_H_U_HTV15", 0, None, None, 0
+        )
 
         for k in V_options:
             dict_betas[f'beta_DIST_H_U_cut1_{k}15'] = Beta(f'beta_DIST_H_U_cut1_{k}15', 0, None, None, 0)
@@ -554,21 +554,21 @@ def get_dict_betas(
             dict_betas[f'beta_DIST_H_U_cut2_{k}21'] = Beta(f'beta_DIST_H_U_cut2_{k}21', 0, None, None, 1)
             #dict_betas[f'beta_DIST_H_U_cut3_{k}21'] = Beta(f'beta_DIST_H_U_cut3_{k}21', 0, None, None, 1)
 
-        dict_betas[f'beta_DIST_H_U_cut3_GA15'] = Beta(f'beta_DIST_H_U_cut3_GA15', 0, None, None, 0)
-        dict_betas[f'beta_DIST_H_U_cut3_GA21'] = Beta(f'beta_DIST_H_U_cut3_GA21', 0, None, None, 1)
+        # dict_betas[f'beta_DIST_H_U_cut3_GA15'] = Beta(f'beta_DIST_H_U_cut3_GA15', 0, None, None, 0)
+        # dict_betas[f'beta_DIST_H_U_cut3_GA21'] = Beta(f'beta_DIST_H_U_cut3_GA21', 0, None, None, 1)
 
         # dict_betas["b_DIST_H_U_GA21"] = Beta(
         #     "B_DIST_H_U_GA21", 0, None, None, 1
         # )
-        # dict_betas["b_DIST_H_U_HT21"] = Beta(
-        #     "B_DIST_H_U_HT21", 0, None, None, 1
-        # )
+        dict_betas["b_DIST_H_U_HT21"] = Beta(
+            "B_DIST_H_U_HT21", 0, None, None, 1
+        )
         # dict_betas["b_DIST_H_U_V21"] = Beta(
         #     "B_DIST_H_U_V21", 0, None, None, 1
         # )
-        # dict_betas["b_DIST_H_U_HTV21"] = Beta(
-        #     "B_DIST_H_U_HTV21", 0, None, None, 1
-        # )
+        dict_betas["b_DIST_H_U_HTV21"] = Beta(
+            "B_DIST_H_U_HTV21", 0, None, None, 1
+        )
 
 
 
