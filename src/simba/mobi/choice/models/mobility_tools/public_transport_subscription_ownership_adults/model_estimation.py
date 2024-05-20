@@ -18,7 +18,7 @@ from simba.mobi.choice.utils.biogeme import estimate_in_directory
 
 def estimate_model(df, output_directory) -> None:
     estimate_2015 = True
-    estimate_2021 = False
+    estimate_2021 = Falsee
     estimate_2015_2021 = False
     if estimate_2015:
         df = df.loc[
@@ -276,7 +276,24 @@ def estimate_model(df, output_directory) -> None:
     else:
         print("Estimating model for 2015")
 
-        V_1cut = [ 'HT', 'V', 'HTV', ]
+        V_1cut = [ 'V', ]
+        #v03
+        #HT,V,HTV, GA: 1 cut at 0.75
+
+        #v04
+        #HT,V,HTV: 1 cut at 0.5
+        #GA: 2 cuts at 0.75 and 2
+
+        #v05
+        #V,HTV: 1 cut at 0.5
+        #HT: linear
+        #GA: 1 at 2
+
+        #v06
+        #V: 1 cut at 0.5
+        #HT: linear
+        #HTV: linear
+        #GA: 1 at 2       
 
         formula_dist_H_U_15 = {k: models.piecewiseFormula(
                                 dist_home_uni15,
@@ -284,10 +301,14 @@ def estimate_model(df, output_directory) -> None:
                                 betas=[dict_betas[f"beta_DIST_H_U_cut1_{k}15"], dict_betas[f"beta_DIST_H_U_cut2_{k}15"], #dict_betas[f"beta_DIST_H_U_cut3_{k}15"]
                                 ],
                             ) for k in V_1cut}
+        
+        formula_dist_H_U_15['HT'] = dict_betas["B_DIST_H_U_HT15"] * dist_home_uni15
+        formula_dist_H_U_15['HTV'] = dict_betas["B_DIST_H_U_HTV15"] * dist_home_uni15
+
         formula_dist_H_U_15['GA'] = models.piecewiseFormula(
                                 dist_home_uni15,
-                                [None, 0.5, 2,  None],
-                                betas=[dict_betas[f"beta_DIST_H_U_cut1_GA15"], dict_betas[f"beta_DIST_H_U_cut2_GA15"], dict_betas[f"beta_DIST_H_U_cut3_GA15"]
+                                [None, 2,  None],
+                                betas=[dict_betas[f"beta_DIST_H_U_cut1_GA15"], dict_betas[f"beta_DIST_H_U_cut2_GA15"], #dict_betas[f"beta_DIST_H_U_cut3_GA15"]
                                 ],
                             )
         formula_dist_H_U_21 = {k: models.piecewiseFormula(
@@ -296,10 +317,14 @@ def estimate_model(df, output_directory) -> None:
                                 betas=[dict_betas[f"beta_DIST_H_U_cut1_{k}21"], dict_betas[f"beta_DIST_H_U_cut2_{k}21"], #dict_betas[f"beta_DIST_H_U_cut3_{k}21"]
                                 ],
                             ) for k in V_1cut}
+        
+        formula_dist_H_U_21['HT'] = dict_betas["B_DIST_H_U_HT21"] * dist_home_uni21
+        formula_dist_H_U_21['HT'] = dict_betas["B_DIST_H_U_HTV21"] * dist_home_uni21
+
         formula_dist_H_U_21['GA'] = models.piecewiseFormula(
                                 dist_home_uni21,
-                                [None, 0.75, 2,  None],
-                                betas=[dict_betas[f"beta_DIST_H_U_cut1_GA21"], dict_betas[f"beta_DIST_H_U_cut2_GA21"], dict_betas[f"beta_DIST_H_U_cut3_GA21"]
+                                [None, 2,  None],
+                                betas=[dict_betas[f"beta_DIST_H_U_cut1_GA21"], dict_betas[f"beta_DIST_H_U_cut2_GA21"], #dict_betas[f"beta_DIST_H_U_cut3_GA21"]
                                 ],
                             )
 
@@ -552,10 +577,10 @@ def estimate_model(df, output_directory) -> None:
     if os.path.isdir(output_directory_for_a_specific_year) is False:
         output_directory_for_a_specific_year.mkdir(parents=True, exist_ok=True)
     the_biogeme = bio.BIOGEME(database, logprob)
-    the_biogeme.modelName = "dcm_indivPT_BUGdist04"
+    the_biogeme.modelName = "dcm_indivPT_BUGdist06"
 
     # Calculate the null log likelihood for reporting.
     the_biogeme.calculateNullLoglikelihood(av)
     results = estimate_in_directory(the_biogeme, output_directory_for_a_specific_year)
     df_parameters = results.getEstimatedParameters()
-    df_parameters.to_csv("parameters_dcm_pt_abo_BUGdist04.csv")
+    df_parameters.to_csv("parameters_dcm_pt_abo_BUGdist06.csv")
